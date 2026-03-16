@@ -30,8 +30,8 @@ def generate_launch_description():
 
     client_node = Node(
         package='a_node',
-        executable='client',
-        name='client'
+        executable='arm_drone_client',   # updated here
+        name='arm_drone_client'
     )
 
     return LaunchDescription([
