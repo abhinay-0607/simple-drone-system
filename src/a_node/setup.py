@@ -29,7 +29,7 @@ setup(
             "DroneAltitudePublisher=a_node.pub_node:main",
             "TargetAltitude=a_node.target_altitude:main",
             "arm_drone_server=a_node.arm_drone_server:main",
-            "client=a_node.client:main"
+            "arm_drone_client=a_node.client:main"
         ],
     },
 )

@@ -1,4 +1,4 @@
-int64 reset_value
+bool arm
 ---
 bool success
 string message

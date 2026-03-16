@@ -1,32 +1,49 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from example_interfaces.msg import Int64
-from my_robot_interfaces.srv import ResetTargetAltitude
-class arm_drone_server(Node):
+from my_robot_interfaces.srv import ArmDrone
+
+
+class ArmDroneServer(Node):
+
     def __init__(self):
         super().__init__("arm_drone_server")
-        self.counter=0
-        self.number_subscriber = self.create_subscription(Int64,"number",self.callback)
-        self.reset_server = self.create_service(ResetTargetAltitude,"reset_target_altitude",self.callback_reset_counter)
-        self.get_logger().info("arm drone server has been started")
 
-    def callback_reset_counter(self,request:ResetTargetAltitude.Request,response:ResetTargetAltitude.Response):
-        self.counter=request.reset_value
-        self.get_logger().info("Reset Target Altitude to"+ str(self.counter))
-        response.success="True"
-        response.message="Success"
+        self.arm_server = self.create_service(
+            ArmDrone,
+            "arm_drone",
+            self.callback_arm_drone
+        )
+
+        self.get_logger().info("Arm Drone Server has been started")
+
+    def callback_arm_drone(
+        self,
+        request: ArmDrone.Request,
+        response: ArmDrone.Response
+    ):
+
+        if request.arm:
+            self.get_logger().info("Drone Armed")
+            response.success = True
+            response.message = "Drone armed successfully"
+        else:
+            self.get_logger().info("Drone Disarmed")
+            response.success = True
+            response.message = "Drone disarmed successfully"
+
         return response
-    def callback(self,msg:Int64):
-        self.counter=msg.data
-        self.get_logger().info("TargetAltitude " +str(self.counter))
+
 
 def main(args=None):
     rclpy.init(args=args)
-    node = arm_drone_server()
+
+    node = ArmDroneServer()
+
     rclpy.spin(node)
+
     rclpy.shutdown()
 
 
 if __name__ == '__main__':
-    main() 
+    main()

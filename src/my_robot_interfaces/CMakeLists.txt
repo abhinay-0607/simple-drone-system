@@ -24,7 +24,7 @@ if(BUILD_TESTING)
 endif()
 find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "srv/ResetTargetAltitude.srv"
+  "srv/ArmDrone.srv"
 )
 
 ament_package()

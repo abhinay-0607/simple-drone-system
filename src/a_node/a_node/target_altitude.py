@@ -11,7 +11,7 @@ class TargetAltitudeNode(Node):
         self.get_logger().info("TargetAltitude has been started")
     def callback(self,msg:Int64):
         self.counter=self.counter+msg.data
-        self.get_logger().info("GrossAltitude " +str(self.counter))
+        self.get_logger().info("TargetAltitude " +str(self.counter))
 
 def main(args=None):
     rclpy.init(args=args)
